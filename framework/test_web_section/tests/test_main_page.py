@@ -1,4 +1,5 @@
 import allure
+import pytest
 
 from framework.test_web_section.pages.main_page import MainPage
 
@@ -16,7 +17,7 @@ class TestHeaderContent:
             main_page.open()
             expected_url, actual_url = main_page.get_url()
             assert expected_url == actual_url, \
-                f"Expected url {expected_url} is not equal actual url {actual_url}"
+                f"Actual url is not equal {expected_url}"
 
         @allure.title("The main page must have a title and it must be correct")
         def test_check_title_main_page(self, driver):
@@ -25,7 +26,7 @@ class TestHeaderContent:
             main_page.open()
             expected_title, actual_title = main_page.get_title()
             assert expected_title == actual_title, \
-                f"Expected title {expected_title} is not equal actual title {actual_title}"
+                f"Actual title is not equal {expected_title}"
 
     @allure.suite("Testing header section")
     class TestHeaderSection:
@@ -35,6 +36,9 @@ class TestHeaderContent:
             """Check logo link status code"""
             main_page = MainPage(driver, MAIN_PAGE_LINK)
             main_page.open()
+            expected_status_code, actual_status_code = main_page.get_status_code()
+            assert expected_status_code == actual_status_code, \
+                f"Actual status code is not equal {expected_status_code}"
 
         @allure.title("The logo must have a valid link")
         def test_check_logo_link(self, driver):
@@ -43,4 +47,70 @@ class TestHeaderContent:
             main_page.open()
             expected_logo_link, actual_logo_link = main_page.get_logo_link()
             assert expected_logo_link == actual_logo_link, \
-                f"Expected logo link {expected_logo_link} is not equal actual logo link {actual_logo_link}"
+                f"Actual logo link is not equal {expected_logo_link}"
+
+        @allure.title("The logo must have a image content type")
+        def test_check_logo_content_type(self, driver):
+            """Check logo content type"""
+            main_page = MainPage(driver, MAIN_PAGE_LINK)
+            main_page.open()
+            expected_content_type, actual_content_type = main_page.get_image_content_type()
+            assert expected_content_type == actual_content_type, \
+                f"Actual image content type is not equal {expected_content_type}"
+
+        @allure.title("The main page should have only one h1 heading")
+        def test_check_count_h1_heading(self, driver):
+            """Check that main page has only 1 h1 heading"""
+            main_page = MainPage(driver, MAIN_PAGE_LINK)
+            main_page.open()
+            actual_count_of_h1_heading = main_page.get_count_of_h1_heading()
+            assert len(actual_count_of_h1_heading) == 1, \
+                "Actual count of h1 heading is not equal 1"
+
+    @allure.suite("Testing main section")
+    class TestMainSection:
+        @pytest.mark.parametrize("elem", range(2))
+        @allure.title("The main section must contain correct text in h2 headings")
+        def test_check_text_h2_heading(self, driver, elem):
+            """Check that h2 heading main section has correct text"""
+            main_page = MainPage(driver, MAIN_PAGE_LINK)
+            main_page.open()
+            expected_text, actual_text = main_page.get_text_heading('h2', elem)
+            assert expected_text == actual_text, f"Actual h2 text heading is not equal {expected_text}"
+
+        @pytest.mark.parametrize("elem", range(3))
+        @allure.title("The main section must contain correct text in h3 headings")
+        def test_check_text_h3_heading(self, driver, elem):
+            """Check that h3 heading main section has correct text"""
+            main_page = MainPage(driver, MAIN_PAGE_LINK)
+            main_page.open()
+            expected_text, actual_text = main_page.get_text_heading('h3', elem)
+            assert expected_text == actual_text, f"Actual h3 text heading is not equal {expected_text}"
+
+        @pytest.mark.parametrize("elem", range(3))
+        @allure.title("The main section must contain correct text in paragraph")
+        def test_check_paragraph_text(self, driver, elem):
+            """Check that paragraph main section has correct text"""
+            main_page = MainPage(driver, MAIN_PAGE_LINK)
+            main_page.open()
+            expected_text, actual_text = main_page.get_text_paragraph(elem)
+            assert expected_text == actual_text, f"Actual paragraph text is not equal {expected_text}"
+
+    @allure.suite("Testing home content section")
+    class TestHomeContent:
+        @pytest.mark.parametrize("elem", range(8))
+        @allure.title("The home content section must contain correct text in h2 headings")
+        def test_check_h2_heading_text(self, driver, elem):
+            """Check that h2 heading home content section has correct text"""
+            main_page = MainPage(driver, MAIN_PAGE_LINK)
+            main_page.open()
+            expected_text, actual_text = main_page.get_text_heading("h2-center", elem)
+            assert expected_text == actual_text, f"Actual h2 text heading is not equal {expected_text}"
+
+        @allure.title("Check support button text")
+        def test_check_support_button_text(self, driver):
+            """Check that support button has correct text"""
+            main_page = MainPage(driver, MAIN_PAGE_LINK)
+            main_page.open()
+
+
