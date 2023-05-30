@@ -1,4 +1,4 @@
-"""This section contains homepage locators"""
+"""This section contain main page locators"""
 
 from selenium.webdriver.common.by import By
 
