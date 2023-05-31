@@ -20,4 +20,4 @@ class TestData:
                                "Advertising",
                                "Looking for pro features?"
                                ]
-    support_button_text = "Support ReqRes"
+    support_button_text = "SUPPORT REQRES"

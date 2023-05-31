@@ -1,6 +1,6 @@
 import allure
 import requests
-from selenium.webdriver.common.by import By
+
 
 from framework.test_api_section.api_expected_result.expected_result import ExpectedRequestsResult
 from framework.data.test_data_main_page import TestData
@@ -70,4 +70,16 @@ class MainPage(BasePage):
         expected_text = self.test_data.main_paragraph[elem]
         actual_text = self.elements_are_visible(self.locators.MAIN_PARAGRAPHS)
         return expected_text, actual_text[elem].text
+
+    @allure.step("Get support button text")
+    def get_support_button_text(self):
+        expected_text = self.test_data.support_button_text
+        actual_text = self.element_is_visible(self.locators.SUPPORT_BUTTON).text
+        return expected_text, actual_text
+
+    def click_on_the_support_button(self):
+        button = self.element_is_visible(self.locators.SUPPORT_BUTTON)
+        button.click()
+        text = self.element_is_visible(self.locators.SUPPORT_TITLE).text
+        return text
 

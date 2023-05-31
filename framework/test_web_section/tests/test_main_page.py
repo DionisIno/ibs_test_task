@@ -112,5 +112,15 @@ class TestHeaderContent:
             """Check that support button has correct text"""
             main_page = MainPage(driver, MAIN_PAGE_LINK)
             main_page.open()
+            expected_text, actual_text = main_page.get_support_button_text()
+            assert expected_text == actual_text, f"Actual button text is not equal {expected_text}"
+
+        @allure.title("Check that after clicking on the button, a redirect to another section occurs")
+        def test_check_that_the_button_redirects_to_another_section(self, driver):
+            """Check redirect to another section"""
+            main_page = MainPage(driver, MAIN_PAGE_LINK)
+            main_page.open()
+            text = main_page.click_on_the_support_button()
+            assert text == "Support", "The redirect did not happen or happened to another location"
 
 

@@ -17,3 +17,6 @@ class MainPageLocators:
     """Locators for the home-content"""
     H2_CENTER_HEADING = (By.CSS_SELECTOR, "h2[class='t-center heading']")
     SUPPORT_BUTTON = (By.CSS_SELECTOR, "div[class='t-center'] button a")
+
+    """Support section"""
+    SUPPORT_TITLE = (By.CSS_SELECTOR, "h2[id='support-heading']")
