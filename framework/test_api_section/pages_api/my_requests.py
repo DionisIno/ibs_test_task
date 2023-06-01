@@ -13,6 +13,12 @@ class MyRequests:
             return response
 
     @staticmethod
+    def post(url: str, data: dict = None, headers: dict = None, cookies: dict = None):
+        with allure.step(f"POST request to URL '{url}'"):
+            response = MyRequests._send(url, data, headers, cookies, "POST")
+            return response
+
+    @staticmethod
     def _send(url: str, data: dict, headers: dict, cookies: dict, method: str):
         url = f"""{BASE_URL}{url}"""
 
