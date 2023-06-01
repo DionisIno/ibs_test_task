@@ -16,23 +16,22 @@ from framework.test_api_section.pages_api.my_requests import MyRequests
 class TestPostCreate(BasePage):
     @pytest.mark.parametrize("elem", range(1, 5))
     @allure.title("Test created user successfully")
-    def test_create_user_successfully(self, elem):
+    def test_create_post_user_successfully(self, elem):
         data = self.prepare_creating_date()
         response = MyRequests.post(url.GET_SINGLE_USER, data=data)
-        print(response.json())
         Assertion.assert_status_code(response, er.CREATED)
         Assertion.assert_response_have_be_json(response)
 
     @pytest.mark.parametrize("elem", range(1, 5))
     @allure.title("Test check of the created user for the presence of all keys")
-    def test_create_user_has_all_keys(self, elem):
+    def test_create_post_user_has_all_keys(self, elem):
         data = self.prepare_creating_date()
         response = MyRequests.post(url.GET_SINGLE_USER, data=data)
         Assertion.assert_json_has_keys(response, CreateUser.create)
 
     @pytest.mark.parametrize("elem", range(1, 5))
     @allure.title("Test validation of the generated data")
-    def test_create_user_created_data_is_correct(self, elem):
+    def test_create_post_user_created_data_is_correct(self, elem):
         data = self.prepare_creating_date()
         response = MyRequests.post(url.GET_SINGLE_USER, data=data)
         CreatePost.assert_check_job_and_name_in_response(response, data)

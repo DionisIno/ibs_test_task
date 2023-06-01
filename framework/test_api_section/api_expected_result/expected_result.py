@@ -22,3 +22,5 @@ class SupportData:
 
 class CreateUser:
     create = ["name", "job", "id", "createdAt"]
+    update = ["name", "job", "updatedAt"]
+    check_update = ["name", "job"]

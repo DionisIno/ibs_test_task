@@ -32,6 +32,23 @@ class Assertion:
             assert name in response_json, f"""response JSON doesn't have key '{name}'"""
 
     @staticmethod
+    def assert_json_has_not_key(response: Response, name):
+        try:
+            response_json = response.json()
+        except json.JSONDecodeError:
+            assert False, f"""Response is not JSON format. Response text is '{response.text}'"""
+        assert name not in response_json, f"""response JSON shouldn't have key '{name}', but it's present"""
+
+    @staticmethod
+    def assert_json_has_not_keys(response: Response, names: list):
+        try:
+            response_json = response.json()
+        except json.JSONDecodeError:
+            assert False, f"""Response is not JSON format. Response text is '{response.text}'"""
+        for name in names:
+            assert name not in response_json, f"""response JSON shouldn't have key '{name}', but it's present"""
+
+    @staticmethod
     def assert_response_have_be_json(response: Response):
         assert 'application/json' in response.headers.get('Content-Type', ''), \
             "Error: Response is not in JSON format"

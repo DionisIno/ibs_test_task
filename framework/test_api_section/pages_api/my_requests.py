@@ -19,6 +19,12 @@ class MyRequests:
             return response
 
     @staticmethod
+    def put(url: str, data: dict = None, headers: dict = None, cookies: dict = None):
+        with allure.step(f"PUT request to URL '{url}'"):
+            response = MyRequests._send(url, data, headers, cookies, "PUT")
+            return response
+
+    @staticmethod
     def _send(url: str, data: dict, headers: dict, cookies: dict, method: str):
         url = f"""{BASE_URL}{url}"""
 
