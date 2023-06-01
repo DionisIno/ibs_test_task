@@ -5,13 +5,11 @@ import random
 import allure
 import pytest
 from framework.test_api_section.api_expected_result.base_url_and_path import GetUrl
-from framework.test_api_section.api_expected_result.expected_result import ExpectedRequestsResult as er, CreateUser
+from framework.test_api_section.api_expected_result.expected_result import CreateUser
 from framework.test_api_section.pages_api.assertions import Assertion
 from framework.test_api_section.pages_api.base_page import BasePage
 from framework.test_api_section.pages_api.create_patch import CreatePatch
 from framework.test_api_section.pages_api.create_post import CreatePost
-from framework.test_api_section.pages_api.create_put import CreatePut
-from framework.test_api_section.pages_api.my_requests import MyRequests
 
 
 @allure.epic('Testing PATCH Create method')
@@ -74,7 +72,7 @@ class TestPatchCreate(BasePage):
     def test_create_patch_user_update_user_with_job_only(self, elem):
         """
         This test checks that the data has updated,
-        there is no key called 'job'
+        there is no key called 'name'
         """
         post_method = CreatePost()
         patch_method = CreatePatch()
@@ -87,7 +85,7 @@ class TestPatchCreate(BasePage):
         Assertion.assert_json_has_not_key(response_after, "name")
 
     @pytest.mark.parametrize("elem", range(1, random_number))
-    @allure.title("Test update user without job PUT method")
+    @allure.title("Test update user without job PATCH method")
     def test_create_put_user_update_user_without_data(self, elem):
         """
         This test checks that the data has updated,

@@ -167,4 +167,7 @@ class Assertion:
         job_after = response_after.json()["job"]
         assert job_before != job_after, "Job is not changed"
 
+    @staticmethod
+    def assert_check_response_is_empty(response: Response):
+        assert response.text == '', "Error: Response is not empty"
 

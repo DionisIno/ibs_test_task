@@ -31,6 +31,12 @@ class MyRequests:
             return response
 
     @staticmethod
+    def delete(url: str, data: dict = None, headers: dict = None, cookies: dict = None):
+        with allure.step(f"DELETE request to URL '{url}'"):
+            response = MyRequests._send(url, data, headers, cookies, "DELETE")
+            return response
+
+    @staticmethod
     def _send(url: str, data: dict, headers: dict, cookies: dict, method: str):
         url = f"""{BASE_URL}{url}"""
 

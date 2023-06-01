@@ -9,7 +9,7 @@ from framework.test_api_section.api_expected_result.expected_result import Expec
 class CreatePatch(BasePage):
     url = GetUrl()
 
-    @allure.description("Update user data using name and job")
+    @allure.description("Update user data using name and job. PATCH method")
     def patch_update_user(self, elem):
         """
         Update a user with the keys name and job,
@@ -22,7 +22,7 @@ class CreatePatch(BasePage):
         Assertion.assert_response_have_be_json(response)
         return response, data
 
-    @allure.description("Update user data using name only")
+    @allure.description("Update user data using name only. PATCH method")
     def patch_update_user_with_name_only(self, elem):
         """
         Update a user with the key name,
@@ -35,7 +35,7 @@ class CreatePatch(BasePage):
         Assertion.assert_response_have_be_json(response)
         return response, data
 
-    @allure.description("Update user data using job only")
+    @allure.description("Update user data using job only. PATCH method")
     def patch_update_user_with_job_only(self, elem):
         """
         Update a user with the key job,
@@ -48,7 +48,7 @@ class CreatePatch(BasePage):
         Assertion.assert_response_have_be_json(response)
         return response, data
 
-    @allure.description("Update user data using job only")
+    @allure.description("Update user data using job only. PATCH method")
     def patch_update_user_without_data(self, elem):
         """
         Update a user without data,

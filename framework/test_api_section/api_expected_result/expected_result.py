@@ -7,6 +7,7 @@ class ExpectedRequestsResult:
     STATUS_CODE_OK = 200
     NOT_FOUND = 404
     CREATED = 201
+    NO_CONTENT = 204
 
 
 class ExpectedCountUserList:
