@@ -7,3 +7,4 @@ class GetUrl:
     GET_SINGLE_USER = "/api/users/"
     REGISTER_USER = "/api/register"
     LOGIN_USER = "/api/login"
+    DELAY = "/api/users?delay="

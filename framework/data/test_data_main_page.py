@@ -1,3 +1,6 @@
+import random
+
+
 class TestData:
     main_page_url = "https://reqres.in/"
     main_page_title = "Reqres - A hosted REST-API ready to respond to your AJAX requests"
@@ -21,3 +24,13 @@ class TestData:
                                "Looking for pro features?"
                                ]
     support_button_text = "SUPPORT REQRES"
+
+
+class ApiTestData:
+
+    def get_random_list(self):
+        lst = list(range(1, 20))
+        num_elements = random.randint(1, 6)
+        random_elements = random.sample(lst, num_elements)
+        return random_elements
+

@@ -8,7 +8,6 @@ from framework.test_api_section.api_expected_result.base_url_and_path import Get
 from framework.test_api_section.api_expected_result.expected_result import RegisterUser, ExpectedRequestsResult as er
 from framework.test_api_section.pages_api.assertions import Assertion
 from framework.test_api_section.pages_api.post_login import LoginPost
-from framework.test_api_section.pages_api.post_register import RegisterPost
 
 
 @allure.epic('Testing POST login successful and unsuccessful')
