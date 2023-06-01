@@ -25,6 +25,12 @@ class MyRequests:
             return response
 
     @staticmethod
+    def patch(url: str, data: dict = None, headers: dict = None, cookies: dict = None):
+        with allure.step(f"PATCH request to URL '{url}'"):
+            response = MyRequests._send(url, data, headers, cookies, "PATCH")
+            return response
+
+    @staticmethod
     def _send(url: str, data: dict, headers: dict, cookies: dict, method: str):
         url = f"""{BASE_URL}{url}"""
 
@@ -39,6 +45,8 @@ class MyRequests:
             response = requests.post(url, data=data, headers=headers, cookies=cookies)
         elif method == "PUT":
             response = requests.put(url, data=data, headers=headers, cookies=cookies)
+        elif method == "PATCH":
+            response = requests.patch(url, data=data, headers=headers, cookies=cookies)
         elif method == "DELETE":
             response = requests.delete(url, data=data, headers=headers, cookies=cookies)
         else:

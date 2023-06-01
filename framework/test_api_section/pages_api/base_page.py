@@ -1,4 +1,5 @@
 import allure
+from requests import Response
 
 from framework.generator.generator import generated_person
 
@@ -15,7 +16,7 @@ class BasePage:
         return {
             "name": name,
             "job": job
-            }
+        }
 
     @allure.description("This method gets the registration date of the job only")
     def prepare_creating_date_job_only(self, job=None):
@@ -34,3 +35,4 @@ class BasePage:
         return {
             "name": name
         }
+

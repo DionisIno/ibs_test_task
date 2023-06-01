@@ -54,6 +54,16 @@ class Assertion:
             "Error: Response is not in JSON format"
 
     @staticmethod
+    def assert_check_job_and_name_in_response(response: Response, data):
+        json_value = response.json()
+        actual_name = json_value["name"]
+        actual_job = json_value["job"]
+        expected_name = data["name"]
+        expected_job = data["job"]
+        assert actual_job == expected_job, f"Actual name is not equal {expected_job}"
+        assert actual_name == expected_name, f"Actual name is not equal {expected_name}"
+
+    @staticmethod
     def assert_response_should_have_valid_page_number(response: Response, send_number: int):
         page_number = response.json()["page"]
         assert page_number == send_number, \
@@ -144,3 +154,17 @@ class Assertion:
                 img_link = elem.get("avatar")
                 assert requests.get(img_link).status_code == er.STATUS_CODE_OK, \
                     f"Status code avatar img link is not equal {er.STATUS_CODE_OK}"
+
+    @staticmethod
+    def assert_check_dict_values_name_changed(response_before: Response, response_after: Response):
+        name_before = response_before.json()["name"]
+        name_after = response_after.json()["name"]
+        assert name_before != name_after, "Name is not changed"
+
+    @staticmethod
+    def assert_check_dict_values_job_changed(response_before: Response, response_after: Response):
+        job_before = response_before.json()["job"]
+        job_after = response_after.json()["job"]
+        assert job_before != job_after, "Job is not changed"
+
+
