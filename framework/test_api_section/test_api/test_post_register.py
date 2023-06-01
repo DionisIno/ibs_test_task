@@ -54,11 +54,10 @@ class TestPostRegister:
     @allure.title("Test check registration with wrong email address, password present. Get status code 400")
     def test_post_unsuccessful_register_get_status_code(self, elem):
         """
-        This test check unsuccessful registration and expect status code 400
+        This test check unsuccessful registration with wrong email and expect status code 400
         """
         post_method = RegisterPost()
         response = post_method.register_with_wrong_email()
-        print(response.json())
         Assertion.assert_status_code(response, er.BAD_REQUEST)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
@@ -92,6 +91,17 @@ class TestPostRegister:
         Assertion.assert_status_code(response, er.BAD_REQUEST)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
+    @allure.title("Test check registration without password and email. Get status code 400")
+    def test_post_unsuccessful_registration_get_status_code_without_password_and_email(self, elem):
+        """
+        This test check unsuccessful registration without password and email and expect status code 400
+        """
+        post_method = RegisterPost()
+        response = post_method.register_without_password_and_email()
+        print(response.json())
+        Assertion.assert_status_code(response, er.BAD_REQUEST)
+
+    @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("Test check unsuccessful registration and get error message")
     def test_post_unsuccessful_register_get_status_code_without_password_wrong_email(self, elem):
         """
@@ -101,6 +111,7 @@ class TestPostRegister:
         wrong_methods = [post_method.register_with_wrong_email(),
                          post_method.register_without_email(),
                          post_method.register_without_password(),
-                         post_method.register_without_password_wrong_email()]
+                         post_method.register_without_password_wrong_email(),
+                         post_method.register_without_password_and_email()]
         response = random.choice(wrong_methods)
         post_method.check_error_message(response)

@@ -1,8 +1,6 @@
 import random
-
 import allure
 from requests import Response
-
 from framework.test_api_section.api_expected_result.base_url_and_path import GetUrl
 from framework.test_api_section.pages_api.base_page import BasePage
 from framework.test_api_section.pages_api.my_requests import MyRequests
@@ -57,6 +55,12 @@ class RegisterPost(BasePage):
         response = MyRequests.post(self.url.REGISTER_USER, data)
         return response
 
+    @allure.description("Registration without password and email")
+    def register_without_password_and_email(self):
+        """This method registers a new user without password and email"""
+        response = MyRequests.post(self.url.REGISTER_USER)
+        return response
+
     @staticmethod
     def check_email(email, response_after: Response):
         """Check email"""
@@ -75,4 +79,3 @@ class RegisterPost(BasePage):
         actual_error_message = response.json()["error"]
         assert actual_error_message in error_message, \
             f"Unexpected error message {actual_error_message}"
-

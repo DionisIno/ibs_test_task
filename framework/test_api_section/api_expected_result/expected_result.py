@@ -30,9 +30,14 @@ class CreateUser:
 
 class RegisterUser:
     register = ["token", "id"]
+    login = "token"
     error_message = ["Note: Only defined users succeed registration",
                      "Missing password",
                      "Missing email or username"]
+    error_login_message = ["Missing password",
+                           "Missing email or username",
+                           "user not found"
+                           ]
 
 
 class Email:

@@ -5,12 +5,12 @@ import random
 import allure
 import pytest
 from framework.test_api_section.api_expected_result.base_url_and_path import GetUrl
-from framework.test_api_section.api_expected_result.expected_result import ExpectedRequestsResult as er, CreateUser
+from framework.test_api_section.api_expected_result.expected_result import CreateUser
 from framework.test_api_section.pages_api.assertions import Assertion
 from framework.test_api_section.pages_api.base_page import BasePage
 from framework.test_api_section.pages_api.create_post import CreatePost
 from framework.test_api_section.pages_api.create_put import CreatePut
-from framework.test_api_section.pages_api.my_requests import MyRequests
+
 
 
 @allure.epic('Testing PUT Create method')
@@ -49,8 +49,6 @@ class TestPutCreate(BasePage):
         Assertion.assert_json_has_keys(response_before, CreateUser.create)
         """Update created user and check all keys"""
         response_after, data_after = put_method.put_update_user(elem)
-        print(response_before.json())
-        print(response_after.json())
         Assertion.assert_json_has_keys(response_after, CreateUser.update)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
