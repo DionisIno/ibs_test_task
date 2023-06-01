@@ -1,6 +1,4 @@
 import allure
-from requests import Response
-
 from framework.generator.generator import generated_person
 
 
@@ -36,3 +34,32 @@ class BasePage:
             "name": name
         }
 
+    @allure.description("This method get registration date")
+    def prepare_creating_registration_data(self, email=None, password=None):
+        person = next(generated_person())
+        if email is None:
+            email = person.email
+        if password is None:
+            password = person.password
+        return {
+            "email": email,
+            "password": password
+        }
+
+    @allure.description("This method get email")
+    def prepare_creating_email(self, email=None):
+        person = next(generated_person())
+        if email is None:
+            email = person.email
+        return {
+            "email": email,
+        }
+
+    @allure.description("This method get password")
+    def prepare_creating_password(self, password=None):
+        person = next(generated_person())
+        if password is None:
+            password = person.password
+        return {
+            "password": password
+        }

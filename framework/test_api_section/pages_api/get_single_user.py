@@ -12,7 +12,6 @@ class SingleUser:
         Assertion.assert_status_code(response, er.STATUS_CODE_OK)
         Assertion.assert_response_have_be_json(response)
         if len(response.json()) > 0:
-            print(response.json())
             json_response = response.json()["data"]
             user_id = json_response.get(key)
             assert user_id is not None, "Error: User does not have key 'id' or its value is None"
