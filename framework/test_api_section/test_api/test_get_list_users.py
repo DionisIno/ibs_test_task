@@ -42,16 +42,22 @@ class TestGetListUsers:
         Assertion.assert_check_in_response_per_page_total_total_pages_have_correct_values(response)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
-    @allure.title("The test checks that the response has support")
-    def test_get_list_users_check_response_has_support(self, elem):
+    @allure.title("The test checks that the list user response has data key")
+    def test_get_list_users_check_response_has_data_key(self, elem):
         response = MyRequests.get(f"""{self.url.GET_LIST_USERS}{elem}""")
-        Assertion.assert_response_should_have_support(response)
+        Assertion.assert_response_should_have_data_key(response)
+
+    @pytest.mark.parametrize("elem", range(1, random_number))
+    @allure.title("The test checks that the list user response has support key")
+    def test_get_list_users_check_response_has_support_key(self, elem):
+        response = MyRequests.get(f"""{self.url.GET_LIST_USERS}{elem}""")
+        Assertion.assert_response_should_have_support_key(response)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("The test checks that the support has correct email")
-    def test_get_list_users_check_support_has_correct_email(self, elem):
+    def test_get_list_users_check_support_has_correct_url(self, elem):
         response = MyRequests.get(f"""{self.url.GET_LIST_USERS}{elem}""")
-        Assertion.assert_support_have_correct_email(response)
+        Assertion.assert_support_have_correct_url(response)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("The test checks that the support has correct text")
@@ -63,31 +69,31 @@ class TestGetListUsers:
     @allure.title("The test checks that all users have ids")
     def test_get_list_users_check_ids(self, elem):
         response = MyRequests.get(f"""{self.url.GET_LIST_USERS}{elem}""")
-        Assertion.assert_users_have_values(response, "id")
+        Assertion.assert_users_have_id(response, "id")
 
     @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("The test checks that all users have emails")
     def test_get_list_users_check_email(self, elem):
         response = MyRequests.get(f"""{self.url.GET_LIST_USERS}{elem}""")
-        Assertion.assert_users_have_values(response, "email")
+        Assertion.assert_users_have_keys(response, "email")
 
     @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("The test checks that all users have first names")
     def test_get_list_users_check_first_name(self, elem):
         response = MyRequests.get(f"""{self.url.GET_LIST_USERS}{elem}""")
-        Assertion.assert_users_have_values(response, "first_name")
+        Assertion.assert_users_have_keys(response, "first_name")
 
     @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("The test checks that all users have last names")
     def test_get_list_users_check_last_name(self, elem):
         response = MyRequests.get(f"""{self.url.GET_LIST_USERS}{elem}""")
-        Assertion.assert_users_have_values(response, "last_name")
+        Assertion.assert_users_have_keys(response, "last_name")
 
     @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("The test checks that all users have avatars")
     def test_get_list_users_check_avatar(self, elem):
         response = MyRequests.get(f"""{self.url.GET_LIST_USERS}{elem}""")
-        Assertion.assert_users_have_values(response, "avatar")
+        Assertion.assert_users_have_keys(response, "avatar")
 
     @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("The test checks that the avatar image has a status code of 200.")

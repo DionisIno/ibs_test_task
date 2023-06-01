@@ -1,7 +1,8 @@
 import requests
 from requests import Response
 
-from framework.test_api_section.api_expected_result.expected_result import ExpectedCountUserList, SupportData
+from framework.test_api_section.api_expected_result.expected_result import \
+    ExpectedCountUserList as el, SupportData, ExpectedRequestsResult as er
 
 
 class Assertion:
@@ -25,7 +26,7 @@ class Assertion:
     @staticmethod
     def assert_check_count_of_response_data(response: Response):
         data_list = response.json()["data"]
-        expected_number = ExpectedCountUserList.PER_PAGE
+        expected_number = el.PER_PAGE
         if len(data_list) > 0:
             assert len(data_list) <= expected_number, \
                 f"The number of users in 1 response is more than {expected_number}"
@@ -38,21 +39,26 @@ class Assertion:
         per_page = response.json()["per_page"]
         total = response.json()["total"]
         total_pages = response.json()["total_pages"]
-        assert per_page == ExpectedCountUserList.PER_PAGE, \
-            f"Per Page s not equal {ExpectedCountUserList.PER_PAGE}"
-        assert total == ExpectedCountUserList.TOTAL, \
-            f"Total is not equal {ExpectedCountUserList.TOTAL}"
-        assert total_pages == ExpectedCountUserList.TOTAL_PAGES, \
-            f"Total Page s not equal {ExpectedCountUserList.TOTAL_PAGES}"
+        assert per_page == el.PER_PAGE, \
+            f"Per Page s not equal {el.PER_PAGE}"
+        assert total == el.TOTAL, \
+            f"Total is not equal {el.TOTAL}"
+        assert total_pages == el.TOTAL_PAGES, \
+            f"Total Page s not equal {el.TOTAL_PAGES}"
 
     @staticmethod
-    def assert_response_should_have_support(response: Response):
+    def assert_response_should_have_data_key(response: Response):
+        json_response = response.json()
+        assert "data" in json_response, "Error: Key 'data' is missing from JSON response"
+
+    @staticmethod
+    def assert_response_should_have_support_key(response: Response):
         json_response = response.json()
         assert "support" in json_response, "Error: Key 'support' is missing from JSON response"
 
     @staticmethod
-    def assert_support_have_correct_email(response: Response):
-        Assertion.assert_response_should_have_support(response)
+    def assert_support_have_correct_url(response: Response):
+        Assertion.assert_response_should_have_support_key(response)
         actual_support_email = response.json()['support']['url']
         expected_support_email = SupportData.url
         assert actual_support_email == expected_support_email, \
@@ -60,44 +66,39 @@ class Assertion:
 
     @staticmethod
     def assert_support_have_correct_text(response: Response):
-        Assertion.assert_response_should_have_support(response)
+        Assertion.assert_response_should_have_support_key(response)
         actual_support_text = response.json()['support']['text']
         expected_support_text = SupportData.message
         assert actual_support_text == expected_support_text, \
             f"Actual support email is not equal {expected_support_text}"
 
     @staticmethod
-    def assert_users_have_values(response: Response, key):
+    def assert_users_have_id(response: Response, key):
+        Assertion.assert_status_code(response, er.STATUS_CODE_OK)
+        Assertion.assert_response_have_be_json(response)
         json_response = response.json()['data']
         if len(json_response) > 0:
-            if key == "id":
-                for elem in json_response:
-                    user_id = elem.get("id")
-                    assert user_id is not None, "Error: User does not have key 'id' or its value is None"
-                    assert isinstance(user_id, int), f"Error: Key value ({user_id}) is not a number"
-            elif key == "email":
-                for elem in json_response:
-                    email = elem.get("email")
-                    assert email is not None, "Error: User does not have key 'email' or its value is None"
-                    assert isinstance(email, str), f"Error: Key value ({email}) is not a string"
-            elif key == "first_name":
-                for elem in json_response:
-                    first_name = elem.get("first_name")
-                    assert first_name is not None, "Error: User does not have key 'first_name' or its value is None"
-                    assert isinstance(first_name, str), f"Error: Key value ({first_name}) is not a string"
-            elif key == "last_name":
-                for elem in json_response:
-                    last_name = elem.get("last_name")
-                    assert last_name is not None, "Error: User does not have key 'last_name' or its value is None"
-                    assert isinstance(last_name, str), f"Error: Key value ({last_name}) is not a string"
-            elif key == "avatar":
-                for elem in json_response:
-                    avatar = elem.get("avatar")
-                    assert avatar is not None, "Error: User does not have key 'avatar' or its value is None"
-                    assert isinstance(avatar, str), f"Error: Key value ({avatar}) is not a string"
+            for elem in json_response:
+                user_id = elem.get(key)
+                assert user_id is not None, "Error: User does not have key 'id' or its value is None"
+                assert isinstance(user_id, int), f"Error: Key value ({user_id}) is not a number"
         else:
-            assert len(json_response) == 0, \
-                "Expected an empty data but got nothing"
+            assert isinstance(json_response, list), \
+                f"Expected an empty list but got {type(json_response)}"
+
+    @staticmethod
+    def assert_users_have_keys(response: Response, key):
+        Assertion.assert_status_code(response, er.STATUS_CODE_OK)
+        Assertion.assert_response_have_be_json(response)
+        json_response = response.json()['data']
+        if len(json_response) > 0:
+            for elem in json_response:
+                value = elem.get(key)
+                assert value is not None, f"Error: User does not have key '{value}' or its value is None"
+                assert isinstance(value, str), f"Error: Key value ({value}) is not a string"
+        else:
+            assert isinstance(json_response, list), \
+                f"Expected an empty list but got {type(json_response)}"
 
     @staticmethod
     def assert_avatar_image_link_has_status_code_200(response: Response):
@@ -105,8 +106,5 @@ class Assertion:
         if len(json_response) > 0:
             for elem in json_response:
                 img_link = elem.get("avatar")
-                assert requests.get(img_link).status_code == 200, \
-                    "Status code avatar img link is not equal 200"
-        else:
-            assert len(json_response) == 0, \
-                "Expected an empty data but got nothing"
+                assert requests.get(img_link).status_code == er.STATUS_CODE_OK, \
+                    f"Status code avatar img link is not equal {er.STATUS_CODE_OK}"
