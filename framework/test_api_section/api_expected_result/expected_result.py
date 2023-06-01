@@ -5,6 +5,7 @@ This section contains the main code statuses and other result from GET API calls
 
 class ExpectedRequestsResult:
     STATUS_CODE_OK = 200
+    NOT_FOUND = 404
 
 
 class ExpectedCountUserList:

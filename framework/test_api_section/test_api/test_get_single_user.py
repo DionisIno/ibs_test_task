@@ -17,7 +17,7 @@ class TestGetSingleUser:
     status_code = ExpectedRequestsResult()
 
     @pytest.mark.parametrize("elem", range(1, random_number))
-    @allure.title("Test should return status code")
+    @allure.title("Test should return status code 200")
     def test_get_single_user_should_return_status_code_200(self, elem):
         response = MyRequests.get(f"""{self.url.GET_SINGLE_USER}{elem}""")
         Assertion.assert_status_code(response, self.status_code.STATUS_CODE_OK)

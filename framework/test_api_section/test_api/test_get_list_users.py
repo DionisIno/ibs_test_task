@@ -12,7 +12,7 @@ class TestGetListUsers:
     random_number = random.randint(2, 13)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
-    @allure.title("Test should return status code")
+    @allure.title("Test should return status code 200")
     def test_get_list_users_should_return_status_code_200(self, elem):
         response = MyRequests.get(f"""{self.url.GET_LIST_USERS}{elem}""")
         Assertion.assert_status_code(response, 200)
