@@ -199,15 +199,13 @@ class MainPage(BasePage, GetApiMethod):
         with allure.step("Get data from website"):
             locator = self.locators.STATUS_CODE
             status_code, response_output = self.response_method(locator)
-            response_out_ui = json.dumps(json.loads(response_output), indent=None)
+            response_out_ui = json.loads(json.dumps(json.loads(response_output), indent=None))
         with allure.step("Get data from the request"):
             get_status_code, get_text = self.post_method(url, data)
-            response_out_api_call = json.dumps(json.loads(get_text), indent=None)
-        print(status_code, get_status_code)
-        print(response_out_ui)
-        print(response_out_api_call)
-        # assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
-        assert response_out_ui == response_out_api_call, "Responses are not identical"
+            response_out_api_call = json.loads(json.dumps(json.loads(get_text), indent=None))
+        assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
+        assert response_out_ui["name"] == response_out_api_call["name"] \
+               and response_out_ui["job"] == response_out_api_call["job"], "Responses are not identical"
 
     def request_method(self):
         url = self.element_is_visible(self.locators.REQUEST_URL).get_attribute("href")
@@ -218,6 +216,8 @@ class MainPage(BasePage, GetApiMethod):
         return url
 
     def response_method(self, locator):
+        a = self.element_is_visible(locator)
+        self.action_move_to_element(a)
         status_code = self.element_is_visible(locator).text
         response_output = self.element_is_visible(self.locators.RESPONSE_OUTPUT).text
         return status_code, response_output

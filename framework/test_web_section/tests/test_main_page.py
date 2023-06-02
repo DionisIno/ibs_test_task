@@ -192,7 +192,6 @@ class TestHeaderContent:
             page.open()
             page.get_single_resource_not_found()
 
-        """Получаю код 200 вместо 201. Пока не могу найти в чес ошибка"""
         @allure.title("On the main page can see the correct data of the section 'Post Create'")
         def test_post_create(self, driver):
             """
