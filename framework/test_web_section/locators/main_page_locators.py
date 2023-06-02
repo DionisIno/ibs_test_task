@@ -45,3 +45,5 @@ class MainPageLocators:
     DELETE_CREATE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='delete']")
     REGISTER_SUCCESSFUL_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='register-successful']")
     REGISTER_UNSUCCESSFUL_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='register-unsuccessful']")
+    LOGIN_SUCCESSFUL_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='login-successful']")
+    LOGIN_UNSUCCESSFUL_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='login-unsuccessful']")
