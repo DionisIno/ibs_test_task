@@ -126,7 +126,7 @@ class TestHeaderContent:
     @allure.suite("Testing console try api-links section")
     class TestApiCall:
 
-        @allure.title("On the main page can see the correct status code of the section 'List Users'")
+        @allure.title("On the main page can see the correct data of the section 'List Users'")
         def test_get_list_users(self, driver):
             """
             This test takes the results of an API call and compares them
@@ -137,7 +137,7 @@ class TestHeaderContent:
             page.open()
             page.get_list_user_data()
 
-        @allure.title("On the main page can see the correct status code of the section 'Single Users'")
+        @allure.title("On the main page can see the correct data of the section 'Single Users'")
         def test_get_single_users(self, driver):
             """
             This test takes the results of an API call and compares them
@@ -148,7 +148,7 @@ class TestHeaderContent:
             page.open()
             page.get_single_user_data()
 
-        @allure.title("On the main page can see the correct status code of the section 'Single Users Not Found'")
+        @allure.title("On the main page can see the correct data of the section 'Single Users Not Found'")
         def test_get_single_user_not_found(self, driver):
             """
             This test takes the results of an API call and compares them
@@ -158,3 +158,14 @@ class TestHeaderContent:
             page = MainPage(driver, MAIN_PAGE_LINK)
             page.open()
             page.get_single_user_not_found()
+
+        @allure.title("On the main page can see the correct data of the section 'Get List Resource'")
+        def test_get_list_resource(self, driver):
+            """
+            This test takes the results of an API call and compares them
+            with the results that are taken from the website.
+            :param: SINGLE USER NOT FOUND
+            """
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.get_list_resource()
