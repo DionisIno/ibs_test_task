@@ -5,7 +5,7 @@ class TestData:
     main_page_url = "https://reqres.in/"
     main_page_title = "Reqres - A hosted REST-API ready to respond to your AJAX requests"
     logo_link = "https://reqres.in/img/logo.png"
-    image_content_type = "image/png1"
+    image_content_type = "image/png"
     main_h2_heading = ['Test your front-end against a real API',
                        'A hosted REST-API ready to respond to your AJAX requests.']
     main_h3_heading = ['Fake data',

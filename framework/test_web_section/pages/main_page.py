@@ -339,7 +339,6 @@ class MainPage(BasePage, GetApiMethod):
             button.click()
         with allure.step("Get url"):
             url = self.request_method()
-            print(url)
         with allure.step("Get data from website"):
             locator = self.locators.STATUS_CODE
             status_code, response_output = self.response_method(locator)
