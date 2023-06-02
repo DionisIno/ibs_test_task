@@ -202,3 +202,14 @@ class TestHeaderContent:
             page = MainPage(driver, MAIN_PAGE_LINK)
             page.open()
             page.post_create()
+
+        @allure.title("On the main page can see the correct data of the section 'Put Create'")
+        def test_put_create(self, driver):
+            """
+            This test checks that the modified data via the request
+            API will be the same as the data for the site
+            :param: PUT CREATE
+            """
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.put_create()

@@ -40,3 +40,4 @@ class MainPageLocators:
     GET_SINGLE_RESOURCE_NOT_FOUND_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li["
                                                              "data-id='unknown-single-not-found']")
     POST_CREATE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='post']")
+    PUT_CREATE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='put']")
