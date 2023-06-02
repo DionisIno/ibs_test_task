@@ -161,6 +161,44 @@ class MainPage(BasePage, GetApiMethod):
         assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
         assert response_out_ui == response_out_api_call, "Responses are not identical"
 
+    @allure.step("GET SINGLE RESOURCE. Compare data on the site and get data from the request")
+    def get_single_resource(self):
+        with allure.step("Click on the button"):
+            button = self.element_is_visible(self.locators.GET_SINGLE_RESOURCE_BUTTON)
+            button.click()
+        with allure.step("Get url"):
+            url = self.request_method()
+        with allure.step("Get data from website"):
+            locator = self.locators.STATUS_CODE_200
+            status_code, response_output = self.response_method(locator)
+            response_out_ui = json.loads(response_output)
+            response_out_ui = json.dumps(response_out_ui, indent=None)
+        with allure.step("Get data from the request"):
+            get_status_code, get_text = self.get_list_user(url)
+            response_out_api_call = json.loads(get_text)
+            response_out_api_call = json.dumps(response_out_api_call, indent=None)
+        assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
+        assert response_out_ui == response_out_api_call, "Responses are not identical"
+
+    @allure.step("GET SINGLE RESOURCE NOT FOUND. Compare data on the site and get data from the request")
+    def get_single_resource_not_found(self):
+        with allure.step("Click on the button"):
+            button = self.element_is_visible(self.locators.GET_SINGLE_RESOURCE_NOT_FOUND_BUTTON)
+            button.click()
+        with allure.step("Get url"):
+            url = self.request_method()
+        with allure.step("Get data from website"):
+            locator = self.locators.STATUS_CODE_404
+            status_code, response_output = self.response_method(locator)
+            response_out_ui = json.loads(response_output)
+            response_out_ui = json.dumps(response_out_ui, indent=None)
+        with allure.step("Get data from the request"):
+            get_status_code, get_text = self.get_list_user(url)
+            response_out_api_call = json.loads(get_text)
+            response_out_api_call = json.dumps(response_out_api_call, indent=None)
+        assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
+        assert response_out_ui == response_out_api_call, "Responses are not identical"
+
     def request_method(self):
         url = self.element_is_visible(self.locators.REQUEST_URL).get_attribute("href")
         return url

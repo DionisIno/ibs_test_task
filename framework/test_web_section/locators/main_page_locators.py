@@ -36,3 +36,6 @@ class MainPageLocators:
     GET_SINGLE_USER_NOT_FOUND_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li["
                                                          "data-id='users-single-not-found']")
     GET_LIST_RESOURCE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='unknown']")
+    GET_SINGLE_RESOURCE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='unknown-single']")
+    GET_SINGLE_RESOURCE_NOT_FOUND_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li["
+                                                             "data-id='unknown-single-not-found']")

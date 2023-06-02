@@ -164,8 +164,30 @@ class TestHeaderContent:
             """
             This test takes the results of an API call and compares them
             with the results that are taken from the website.
-            :param: SINGLE USER NOT FOUND
+            :param: LIST RESOURCE
             """
             page = MainPage(driver, MAIN_PAGE_LINK)
             page.open()
             page.get_list_resource()
+
+        @allure.title("On the main page can see the correct data of the section 'Get Single Resource'")
+        def test_get_single_resource(self, driver):
+            """
+            This test takes the results of an API call and compares them
+            with the results that are taken from the website.
+            :param: SINGLE RESOURCE
+            """
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.get_single_resource()
+
+        @allure.title("On the main page can see the correct data of the section 'Get Single Resource Not Found'")
+        def test_get_single_resource_not_found(self, driver):
+            """
+            This test takes the results of an API call and compares them
+            with the results that are taken from the website.
+            :param: SINGLE RESOURCE NOT FOUND
+            """
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.get_single_resource_not_found()
