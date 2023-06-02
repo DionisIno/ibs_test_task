@@ -1,6 +1,7 @@
 import allure
 import pytest
 
+
 from framework.test_web_section.pages.main_page import MainPage
 
 MAIN_PAGE_LINK = 'https://reqres.in/'
@@ -123,4 +124,23 @@ class TestHeaderContent:
             text = main_page.click_on_the_support_button()
             assert text == "Support", "The redirect did not happen or happened to another location"
 
+
+@allure.epic("Testing console try api-links section")
+class TestApiCall:
+
+    @allure.title("Testing List Users request")
+    class TestListUsers:
+        """This class is for testing List Users request"""
+        # @pytest.skip(reason="Не могу пока что преобразовать 2 полученных результата к одному сравнить их")
+        @allure.title("On the main page can see the correct status code of the section 'List Users'")
+        def test_status_code_get_list_users(self, driver):
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.click_on_the_get_list_user_button()
+
+        @allure.title("On the main page can see the correct status code of the section 'Single Users'")
+        def test_status_code_get_single_users(self, driver):
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.click_on_the_get_single_user_button()
 

@@ -1,14 +1,16 @@
+import json
+
 import allure
 import requests
-
 
 from framework.test_api_section.api_expected_result.expected_result import ExpectedRequestsResult
 from framework.data.test_data_main_page import TestData
 from framework.test_web_section.locators.main_page_locators import MainPageLocators
+from framework.test_web_section.pages.api_method_for_main_page import GetApiMethod
 from framework.test_web_section.pages.base_page import BasePage
 
 
-class MainPage(BasePage):
+class MainPage(BasePage, GetApiMethod):
     locators = MainPageLocators
     test_data = TestData
     status_code = ExpectedRequestsResult
@@ -77,9 +79,44 @@ class MainPage(BasePage):
         actual_text = self.element_is_visible(self.locators.SUPPORT_BUTTON).text
         return expected_text, actual_text
 
+    @allure.step("Click on the button and get text")
     def click_on_the_support_button(self):
         button = self.element_is_visible(self.locators.SUPPORT_BUTTON)
         button.click()
         text = self.element_is_visible(self.locators.SUPPORT_TITLE).text
         return text
 
+    def click_on_the_get_list_user_button(self):
+        button = self.element_is_visible(self.locators.GET_LIST_USERS_BUTTON)
+        button.click()
+        url = self.request_method()
+        status_code, response_output = self.response_method()
+        get_status_code, get_text = self.get_list_user(url)
+        print(int(status_code) == get_status_code)
+        print(get_text)
+        print(type(response_output))
+        print(type(get_text))
+        print(response_output == get_text)
+
+    def click_on_the_get_single_user_button(self):
+        button = self.element_is_visible(self.locators.GET_SINGLE_USER_BUTTON)
+        button.click()
+        url = self.request_method()
+        status_code, response_output = self.response_method()
+        response_out_ui = json.loads(response_output)
+        response_out_ui = json.dumps(response_out_ui, indent=None)
+
+        get_status_code, get_text = self.get_list_user(url)
+        response_out_api_call = json.loads(get_text)
+        response_out_api_call = json.dumps(response_out_api_call, indent=None)
+        assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
+        assert response_out_ui == response_out_api_call, "Responses are not identical"
+
+    def request_method(self):
+        url = self.element_is_visible(self.locators.REQUEST_URL).get_attribute("href")
+        return url
+
+    def response_method(self):
+        status_code = self.element_is_visible(self.locators.STATUS_CODE).text
+        response_output = self.element_is_visible(self.locators.RESPONSE_OUTPUT).text
+        return status_code, response_output

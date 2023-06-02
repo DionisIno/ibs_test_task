@@ -20,3 +20,15 @@ class MainPageLocators:
 
     """Support section"""
     SUPPORT_TITLE = (By.CSS_SELECTOR, "h2[id='support-heading']")
+
+    """Request"""
+    REQUEST_URL = (By.CSS_SELECTOR, "a[class='link try-link']")
+    REQUEST_INPUT = (By.CSS_SELECTOR, "pre[data-key='output-request']")
+
+    """Response"""
+    STATUS_CODE = (By.CSS_SELECTOR, "span[class='response-code']")
+    RESPONSE_OUTPUT = (By.CSS_SELECTOR, "pre[data-key='output-response']")
+
+    """API call buttons"""
+    GET_LIST_USERS_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='users']")
+    GET_SINGLE_USER_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='users-single']")
