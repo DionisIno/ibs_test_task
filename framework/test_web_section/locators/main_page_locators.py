@@ -41,3 +41,5 @@ class MainPageLocators:
                                                              "data-id='unknown-single-not-found']")
     POST_CREATE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='post']")
     PUT_CREATE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='put']")
+    PATCH_CREATE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='patch']")
+    DELETE_CREATE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='delete']")

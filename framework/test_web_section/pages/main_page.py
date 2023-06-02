@@ -226,6 +226,40 @@ class MainPage(BasePage, GetApiMethod):
         assert response_out_ui["name"] == response_out_api_call["name"] \
                and response_out_ui["job"] == response_out_api_call["job"], "Responses are not identical"
 
+    @allure.step("PATCH CREATE. Compare data on the site and get data from the request")
+    def patch_create(self):
+        with allure.step("Click on the button"):
+            button = self.element_is_visible(self.locators.PATCH_CREATE_BUTTON)
+            button.click()
+        with allure.step("Get url"):
+            url, data = self.request_method()
+            data = json.loads(data)
+        with allure.step("Get data from website"):
+            locator = self.locators.STATUS_CODE
+            status_code, response_output = self.response_method(locator)
+            response_out_ui = json.loads(json.dumps(json.loads(response_output), indent=None))
+        with allure.step("Get data from the request"):
+            get_status_code, get_text = self.patch_method(url, data)
+            response_out_api_call = json.loads(json.dumps(json.loads(get_text), indent=None))
+        assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
+        assert response_out_ui["name"] == response_out_api_call["name"] \
+               and response_out_ui["job"] == response_out_api_call["job"], "Responses are not identical"
+
+    @allure.step("DELETE CREATE. Compare data on the site and get data from the request")
+    def delete_create(self):
+        with allure.step("Click on the button"):
+            button = self.element_is_visible(self.locators.DELETE_CREATE_BUTTON)
+            button.click()
+        with allure.step("Get url"):
+            url = self.request_method()
+        with allure.step("Get data from website"):
+            locator = self.locators.STATUS_CODE_BAD
+            status_code, response_output = self.response_method(locator)
+        with allure.step("Get data from the request"):
+            get_status_code, get_text = self.delete_method(url)
+        assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
+        assert len(response_output) == len(get_text), "Responses are not identical"
+
     def request_method(self):
         url = self.element_is_visible(self.locators.REQUEST_URL).get_attribute("href")
         a = self.element_is_present(self.locators.REQUEST_INPUT).get_attribute("hidden")

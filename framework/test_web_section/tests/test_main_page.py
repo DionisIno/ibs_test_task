@@ -213,3 +213,25 @@ class TestHeaderContent:
             page = MainPage(driver, MAIN_PAGE_LINK)
             page.open()
             page.put_create()
+
+        @allure.title("On the main page can see the correct data of the section 'Patch Create'")
+        def test_patch_create(self, driver):
+            """
+            This test checks that the modified data via the request
+            API will be the same as the data for the site
+            :param: PATCH CREATE
+            """
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.patch_create()
+
+        @allure.title("On the main page can see the correct data of the section 'Delete Create'")
+        def test_delete_create(self, driver):
+            """
+            This test checks that the modified data via the request
+            API will be the same as the data for the site
+            :param: DELETE CREATE
+            """
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.delete_create()
