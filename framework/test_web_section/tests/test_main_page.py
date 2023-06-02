@@ -235,3 +235,14 @@ class TestHeaderContent:
             page = MainPage(driver, MAIN_PAGE_LINK)
             page.open()
             page.delete_create()
+
+        @allure.title("On the main page can see the correct data of the section 'Register successful'")
+        def test_register_successful(self, driver):
+            """
+            This test checks that the modified data via the request
+            API will be the same as the data for the site
+            :param: REGISTER SUCCESSFUL
+            """
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.register_successful()

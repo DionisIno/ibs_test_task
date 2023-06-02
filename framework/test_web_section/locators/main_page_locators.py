@@ -43,3 +43,5 @@ class MainPageLocators:
     PUT_CREATE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='put']")
     PATCH_CREATE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='patch']")
     DELETE_CREATE_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='delete']")
+    REGISTER_SUCCESSFUL_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='register-successful']")
+    REGISTER_UNSUCCESSFUL_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='register-successful']")
