@@ -246,3 +246,14 @@ class TestHeaderContent:
             page = MainPage(driver, MAIN_PAGE_LINK)
             page.open()
             page.register_successful()
+
+        @allure.title("On the main page can see the correct data of the section 'Register unsuccessful'")
+        def test_register_unsuccessful(self, driver):
+            """
+            This test checks that the modified data via the request
+            API will be the same as the data for the site
+            :param: REGISTER UNSUCCESSFUL
+            """
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.register_unsuccessful()

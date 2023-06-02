@@ -279,6 +279,24 @@ class MainPage(BasePage, GetApiMethod):
         assert response_out_ui["id"] == response_out_api_call["id"] \
                and response_out_ui["token"] == response_out_api_call["token"], "Responses are not identical"
 
+    @allure.step("POST REGISTER UNSUCCESSFUL. Compare data on the site and get data from the request")
+    def register_unsuccessful(self):
+        with allure.step("Click on the button"):
+            button = self.element_is_visible(self.locators.REGISTER_UNSUCCESSFUL_BUTTON)
+            button.click()
+        with allure.step("Get url"):
+            url, data = self.request_method()
+            data = json.loads(data)
+        with allure.step("Get data from website"):
+            locator = self.locators.STATUS_CODE_BAD
+            status_code, response_output = self.response_method(locator)
+            response_out_ui = json.loads(json.dumps(json.loads(response_output), indent=None))
+        with allure.step("Get data from the request"):
+            get_status_code, get_text = self.post_method(url, data)
+            response_out_api_call = json.loads(json.dumps(json.loads(get_text), indent=None))
+        assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
+        assert response_out_ui["error"] == response_out_api_call["error"], "Responses are not identical"
+
     def request_method(self):
         url = self.element_is_visible(self.locators.REQUEST_URL).get_attribute("href")
         a = self.element_is_present(self.locators.REQUEST_INPUT).get_attribute("hidden")
