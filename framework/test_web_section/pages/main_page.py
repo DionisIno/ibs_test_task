@@ -86,29 +86,38 @@ class MainPage(BasePage, GetApiMethod):
         text = self.element_is_visible(self.locators.SUPPORT_TITLE).text
         return text
 
+    @allure.step("GET USER LIST. Compare data on the site and get data from the request")
     def click_on_the_get_list_user_button(self):
-        button = self.element_is_visible(self.locators.GET_LIST_USERS_BUTTON)
-        button.click()
-        url = self.request_method()
-        status_code, response_output = self.response_method()
-        get_status_code, get_text = self.get_list_user(url)
-        print(int(status_code) == get_status_code)
-        print(get_text)
-        print(type(response_output))
-        print(type(get_text))
-        print(response_output == get_text)
+        with allure.step("Click on the button"):
+            button = self.element_is_visible(self.locators.GET_LIST_USERS_BUTTON)
+            button.click()
+        with allure.step("Get url"):
+            url = self.request_method()
+        with allure.step("Get data from website"):
+            status_code, response_output = self.response_method()
+            response_out_ui = json.loads(response_output)
+            response_out_ui = json.dumps(response_out_ui, indent=None)
+        with allure.step("Get data from the request"):
+            get_status_code, get_text = self.get_list_user(url)
+            response_out_api_call = json.loads(get_text)
+            response_out_api_call = json.dumps(response_out_api_call, indent=None)
+        assert response_out_ui == response_out_api_call, "Responses are not identical"
 
+    @allure.step("GET SINGLE USER. Compare data on the site and get data from the request")
     def click_on_the_get_single_user_button(self):
-        button = self.element_is_visible(self.locators.GET_SINGLE_USER_BUTTON)
-        button.click()
-        url = self.request_method()
-        status_code, response_output = self.response_method()
-        response_out_ui = json.loads(response_output)
-        response_out_ui = json.dumps(response_out_ui, indent=None)
-
-        get_status_code, get_text = self.get_list_user(url)
-        response_out_api_call = json.loads(get_text)
-        response_out_api_call = json.dumps(response_out_api_call, indent=None)
+        with allure.step("Click on the button"):
+            button = self.element_is_visible(self.locators.GET_SINGLE_USER_BUTTON)
+            button.click()
+        with allure.step("Get url"):
+            url = self.request_method()
+        with allure.step("Get data from website"):
+            status_code, response_output = self.response_method()
+            response_out_ui = json.loads(response_output)
+            response_out_ui = json.dumps(response_out_ui, indent=None)
+        with allure.step("Get data from the request"):
+            get_status_code, get_text = self.get_list_user(url)
+            response_out_api_call = json.loads(get_text)
+            response_out_api_call = json.dumps(response_out_api_call, indent=None)
         assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
         assert response_out_ui == response_out_api_call, "Responses are not identical"
 
