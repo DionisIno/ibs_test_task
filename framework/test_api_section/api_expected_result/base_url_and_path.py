@@ -8,3 +8,4 @@ class GetUrl:
     REGISTER_USER = "/api/register"
     LOGIN_USER = "/api/login"
     DELAY = "/api/users?delay="
+    LIST_RESOURCE = "/api/unknown"

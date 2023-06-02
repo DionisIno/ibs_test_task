@@ -4,6 +4,7 @@ import pytest
 from framework.test_api_section.api_expected_result.base_url_and_path import GetUrl
 from framework.test_api_section.pages_api.assertions import Assertion
 from framework.test_api_section.pages_api.my_requests import MyRequests
+from framework.test_api_section.api_expected_result.expected_result import ExpectedRequestsResult as er
 
 
 @allure.epic("Testing GET LIST USERS")
@@ -15,7 +16,7 @@ class TestGetListUsers:
     @allure.title("Test should return status code 200")
     def test_get_list_users_should_return_status_code_200(self, elem):
         response = MyRequests.get(f"""{self.url.GET_LIST_USERS}{elem}""")
-        Assertion.assert_status_code(response, 200)
+        Assertion.assert_status_code(response, er.STATUS_CODE_OK)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("Test test should check if the response is in json format")
