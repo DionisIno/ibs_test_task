@@ -351,14 +351,16 @@ class MainPage(BasePage, GetApiMethod):
         assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
         assert response_out_ui == response_out_api_call, "Responses are not identical"
 
+    @allure.step("Gets the URL and data (if any) in the requests section")
     def request_method(self):
         url = self.element_is_visible(self.locators.REQUEST_URL).get_attribute("href")
-        a = self.element_is_present(self.locators.REQUEST_INPUT).get_attribute("hidden")
-        if a != 'true':
+        hidden_resource = self.element_is_present(self.locators.REQUEST_INPUT).get_attribute("hidden")
+        if hidden_resource != 'true':
             data = self.element_is_visible(self.locators.REQUEST_INPUT).text
             return url, data
         return url
 
+    @allure.step("Gets the status code and data in the response section")
     def response_method(self, locator):
         a = self.element_is_visible(locator)
         self.action_move_to_element(a)
