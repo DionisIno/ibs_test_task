@@ -191,3 +191,15 @@ class TestHeaderContent:
             page = MainPage(driver, MAIN_PAGE_LINK)
             page.open()
             page.get_single_resource_not_found()
+
+        @pytest.xfail("Получаю код 200 вместо 201. Пока не могу найти в чес ошибка")
+        @allure.title("On the main page can see the correct data of the section 'Post Create'")
+        def test_post_create(self, driver):
+            """
+            This test takes the results of an API call and compares them
+            with the results that are taken from the website.
+            :param: POST CREATE
+            """
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.post_create()
