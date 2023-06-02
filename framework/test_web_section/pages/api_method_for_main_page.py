@@ -1,4 +1,4 @@
-import json
+"""This section contain API method for testing main page"""
 
 import requests
 

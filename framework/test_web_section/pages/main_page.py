@@ -1,9 +1,8 @@
-import json
-import time
+"""This section contain all steps for tests main page"""
 
+import json
 import allure
 import requests
-
 from framework.test_api_section.api_expected_result.expected_result import ExpectedRequestsResult
 from framework.data.test_data_main_page import TestData
 from framework.test_web_section.locators.main_page_locators import MainPageLocators

@@ -1,3 +1,5 @@
+"""This section contain tests main page"""
+
 import allure
 import pytest
 
