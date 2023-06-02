@@ -10,7 +10,7 @@ from framework.test_api_section.pages_api.assertions import Assertion
 from framework.test_api_section.pages_api.delay import DelayResponse
 
 
-@allure.epic('Testing POST login successful and unsuccessful')
+@allure.epic('Testing DELAYED RESPONSE')
 class TestDelayResponse:
     url = GetUrl()
     random_list = ApiTestData()
@@ -26,10 +26,10 @@ class TestDelayResponse:
         Assertion.assert_status_code(response, er.STATUS_CODE_OK)
 
     @pytest.mark.parametrize("elem", random_list.get_random_list())
-    @allure.title("Test delay get status code 200")
+    @allure.title("checks that the response has json format")
     def test_get_delay_response_should_be_json(self, elem):
         """
-        This test checks that the response has status code is 200
+        This test checks that the response has json format
         """
         get_method = DelayResponse()
         response = get_method.get_delay_response(elem)

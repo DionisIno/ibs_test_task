@@ -86,7 +86,7 @@ class TestGetSingleResourceNotFound:
     @allure.title("Test should check that response is empty")
     def test_get_single_resource_not_found_should_be_empty(self, elem):
         """
-        This test checks that the response has json format
+        This test checks that the response has empty
         """
         get_method = GetSingleResource()
         response = get_method.get_single_resource_response(elem)

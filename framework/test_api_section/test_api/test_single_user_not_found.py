@@ -1,3 +1,6 @@
+"""
+API tests for GET SINGLE USER NOT FOUND
+"""
 import random
 import allure
 import pytest
@@ -18,17 +21,26 @@ class TestGetSingleUserNotFound:
     @pytest.mark.parametrize("elem", [random.choice(random_number)])
     @allure.title("Test should return status code 404")
     def test_get_single_user_not_found_should_return_status_code_404(self, elem):
+        """
+        This test checks that the response has status code is 404
+        """
         response = MyRequests.get(f"""{self.url.GET_SINGLE_USER}{elem}""")
         Assertion.assert_status_code(response, self.status_code.NOT_FOUND)
 
     @pytest.mark.parametrize("elem", [random.choice(random_number)])
     @allure.title("Test should check that response has json format")
     def test_get_single_user_not_found_should_be_json(self, elem):
+        """
+        This test checks that the response has json format
+        """
         response = MyRequests.get(f"""{self.url.GET_SINGLE_USER}{elem}""")
         Assertion.assert_response_have_be_json(response)
 
     @pytest.mark.parametrize("elem", [random.choice(random_number)])
     @allure.title("Test should check that response is empty")
     def test_get_single_user_not_found_should_be_empty(self, elem):
+        """
+        This test checks that the response has empty
+        """
         response = MyRequests.get(f"""{self.url.GET_SINGLE_USER}{elem}""")
         SingleUserNotFound.assert_get_single_user_not_found_has_empty_json(response)

@@ -10,7 +10,7 @@ from framework.test_api_section.pages_api.assertions import Assertion
 from framework.test_api_section.pages_api.get_list_resource import GetListResource
 
 
-@allure.epic('Testing POST login successful and unsuccessful')
+@allure.epic('Testing GET list resource')
 class TestGetListResource:
     url = GetUrl()
     random_number = random.randint(2, 5)
