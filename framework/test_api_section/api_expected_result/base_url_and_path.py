@@ -9,3 +9,4 @@ class GetUrl:
     LOGIN_USER = "/api/login"
     DELAY = "/api/users?delay="
     LIST_RESOURCE = "/api/unknown"
+    SINGLE_RESOURCE = "/api/unknown/"

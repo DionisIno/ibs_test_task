@@ -2,10 +2,8 @@
 API tests for GET list resource.
 """
 import random
-
 import allure
 import pytest
-from framework.data.test_data_main_page import ApiTestData
 from framework.test_api_section.api_expected_result.base_url_and_path import GetUrl
 from framework.test_api_section.api_expected_result.expected_result import ExpectedRequestsResult as er
 from framework.test_api_section.pages_api.assertions import Assertion
