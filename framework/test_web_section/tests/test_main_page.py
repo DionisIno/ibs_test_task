@@ -279,3 +279,14 @@ class TestHeaderContent:
             page = MainPage(driver, MAIN_PAGE_LINK)
             page.open()
             page.login_unsuccessful()
+
+        @allure.title("On the main page can see the correct data of the section 'Delayed response'")
+        def test_delayed_response(self, driver):
+            """
+            This test checks that the modified data via the request
+            API will be the same as the data for the site
+            :param: DELAYED RESPONSE
+            """
+            page = MainPage(driver, MAIN_PAGE_LINK)
+            page.open()
+            page.get_delayed_response()

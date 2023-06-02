@@ -47,3 +47,4 @@ class MainPageLocators:
     REGISTER_UNSUCCESSFUL_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='register-unsuccessful']")
     LOGIN_SUCCESSFUL_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='login-successful']")
     LOGIN_UNSUCCESSFUL_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='login-unsuccessful']")
+    DELAY_BUTTON = (By.CSS_SELECTOR, "div[class='endpoints'] ul li[data-id='delay']")

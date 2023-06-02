@@ -333,6 +333,23 @@ class MainPage(BasePage, GetApiMethod):
         assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
         assert response_out_ui["error"] == response_out_api_call["error"], "Responses are not identical"
 
+    @allure.step("DELAYED RESPONSE. Compare data on the site and get data from the request")
+    def get_delayed_response(self):
+        with allure.step("Click on the button"):
+            button = self.element_is_visible(self.locators.DELAY_BUTTON)
+            button.click()
+        with allure.step("Get url"):
+            url = self.request_method()
+            print(url)
+        with allure.step("Get data from website"):
+            locator = self.locators.STATUS_CODE
+            status_code, response_output = self.response_method(locator)
+            response_out_ui = json.dumps(json.loads(response_output), indent=None)
+        with allure.step("Get data from the request"):
+            get_status_code, get_text = self.get_method(url)
+            response_out_api_call = json.dumps(json.loads(get_text), indent=None)
+        assert int(status_code) == get_status_code, f"Status code not equal {get_status_code}"
+        assert response_out_ui == response_out_api_call, "Responses are not identical"
 
     def request_method(self):
         url = self.element_is_visible(self.locators.REQUEST_URL).get_attribute("href")
