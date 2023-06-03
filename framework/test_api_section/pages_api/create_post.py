@@ -10,52 +10,53 @@ class CreatePost(BasePage):
     url = GetUrl()
 
     @allure.description("Create user with job and name")
-    def create_new_user(self, elem):
+    def create_new_user(self):
         """
         Creates a user with the keys name and job,
         checks that the status code is 201
         and that the response came in json format
         """
         data = self.prepare_creating_date()
-        response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}{elem}""", data)
+        response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}""", data)
         Assertion.assert_status_code(response, er.CREATED)
         Assertion.assert_response_have_be_json(response)
         return response, data
 
     @allure.description("Create user with name only")
-    def create_new_user_with_only_name(self, elem):
+    def create_new_user_with_only_name(self):
         """
             Creates a user with the keys name,
             checks that the status code is 201
             and that the response came in json format
         """
         data = self.prepare_creating_date_name_only()
-        response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}{elem}""", data)
+        response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}""", data)
         Assertion.assert_status_code(response, er.CREATED)
         Assertion.assert_response_have_be_json(response)
         return response, data
 
     @allure.description("Create user with job only")
-    def create_new_user_with_only_job(self, elem):
+    def create_new_user_with_only_job(self):
         """
             Creates a user with the keys job,
             checks that the status code is 201
             and that the response came in json format
         """
         data = self.prepare_creating_date_job_only()
-        response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}{elem}""", data)
+        response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}""", data)
         Assertion.assert_status_code(response, er.CREATED)
         Assertion.assert_response_have_be_json(response)
         return response, data
 
     @allure.description("Create user without job and name")
-    def create_new_user_without_data(self, elem):
+    def create_new_user_without_data(self):
         """
             Creates a user without data,
             checks that the status code is 201
             and that the response came in json format
         """
-        response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}{elem}""")
+        response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}""")
         Assertion.assert_status_code(response, er.CREATED)
         Assertion.assert_response_have_be_json(response)
         return response
+

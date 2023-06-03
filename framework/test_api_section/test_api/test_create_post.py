@@ -21,14 +21,15 @@ class TestPostCreate:
     def test_create_post_user_successfully(self, elem):
         """This test checks that the user was created successfully"""
         post_method = CreatePost()
-        response, data = post_method.create_new_user(elem)
+        response, data = post_method.create_new_user()
+        Assertion.assert_check_job_and_name_in_response(response, data)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("Test check of the created user for the presence of all keys")
     def test_create_post_user_has_all_keys(self, elem):
         """This test checks if the user was successfully created and if all keys are present"""
         post_method = CreatePost()
-        response, data = post_method.create_new_user(elem)
+        response, data = post_method.create_new_user()
         Assertion.assert_json_has_keys(response, CreateUser.create)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
@@ -36,7 +37,7 @@ class TestPostCreate:
     def test_create_post_user_created_data_is_correct(self, elem):
         """This test checks that the values of the keys name and operation match the given data"""
         post_method = CreatePost()
-        response, data = post_method.create_new_user(elem)
+        response, data = post_method.create_new_user()
         Assertion.assert_check_job_and_name_in_response(response, data)
 
     @pytest.mark.parametrize("elem", range(1, random_number))
@@ -44,7 +45,7 @@ class TestPostCreate:
     def test_create_post_user_with_name_only(self, elem):
         """This test checks that the user was created  with name only"""
         post_method = CreatePost()
-        response, data = post_method.create_new_user_with_only_name(elem)
+        response, data = post_method.create_new_user_with_only_name()
         Assertion.assert_json_has_key(response, "name")
         Assertion.assert_json_has_not_key(response, "job")
 
@@ -53,7 +54,7 @@ class TestPostCreate:
     def test_create_post_user_with_job_only(self, elem):
         """This test checks that the user was created  with job only"""
         post_method = CreatePost()
-        response, data = post_method.create_new_user_with_only_job(elem)
+        response, data = post_method.create_new_user_with_only_job()
         Assertion.assert_json_has_key(response, "job")
         Assertion.assert_json_has_not_key(response, "name")
 
@@ -62,6 +63,6 @@ class TestPostCreate:
     def test_create_post_user_without_data(self, elem):
         """This test checks that the user was created without job and name"""
         post_method = CreatePost()
-        response = post_method.create_new_user_without_data(elem)
+        response = post_method.create_new_user_without_data()
         Assertion.assert_json_has_not_keys(response, CreateUser.check_update)
 
