@@ -14,6 +14,12 @@ from framework.test_api_section.pages_api.post_register import RegisterPost
 class TestPostRegister:
     url = GetUrl()
     random_number = random.randint(2, 5)
+    post_method = RegisterPost()
+    wrong_methods = [post_method.register_with_wrong_email(),
+                     post_method.register_without_email(),
+                     post_method.register_without_password(),
+                     post_method.register_without_password_wrong_email(),
+                     post_method.register_without_password_and_email()]
 
     @pytest.mark.parametrize("elem", range(1, random_number))
     @allure.title("Test register user successfully")
@@ -101,17 +107,11 @@ class TestPostRegister:
         print(response.json())
         Assertion.assert_status_code(response, er.BAD_REQUEST)
 
-    @pytest.mark.parametrize("elem", range(1, random_number))
+    @pytest.mark.parametrize("item", wrong_methods)
     @allure.title("Test check unsuccessful registration and get error message")
-    def test_post_unsuccessful_register_get_status_code_without_password_wrong_email(self, elem):
+    def test_post_unsuccessful_register_get_status_code_without_password_wrong_email(self, item):
         """
         This test check unsuccessful registration and get error message
         """
         post_method = RegisterPost()
-        wrong_methods = [post_method.register_with_wrong_email(),
-                         post_method.register_without_email(),
-                         post_method.register_without_password(),
-                         post_method.register_without_password_wrong_email(),
-                         post_method.register_without_password_and_email()]
-        response = random.choice(wrong_methods)
-        post_method.check_error_message(response)
+        post_method.check_error_message(item)

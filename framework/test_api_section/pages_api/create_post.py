@@ -1,4 +1,6 @@
 import allure
+
+from framework.generator.generator import generated_person
 from framework.test_api_section.api_expected_result.base_url_and_path import GetUrl
 from framework.test_api_section.pages_api.assertions import Assertion
 from framework.test_api_section.pages_api.base_page import BasePage
@@ -16,7 +18,10 @@ class CreatePost(BasePage):
         checks that the status code is 201
         and that the response came in json format
         """
-        data = self.prepare_creating_date()
+        person = next(generated_person())
+        name = person.name
+        job = person.job
+        data = self.prepare_creating_date(name=name, job=job)
         response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}""", data)
         Assertion.assert_status_code(response, er.CREATED)
         Assertion.assert_response_have_be_json(response)
@@ -29,7 +34,9 @@ class CreatePost(BasePage):
             checks that the status code is 201
             and that the response came in json format
         """
-        data = self.prepare_creating_date_name_only()
+        person = next(generated_person())
+        name = person.name
+        data = self.prepare_creating_date(name=name)
         response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}""", data)
         Assertion.assert_status_code(response, er.CREATED)
         Assertion.assert_response_have_be_json(response)
@@ -42,7 +49,9 @@ class CreatePost(BasePage):
             checks that the status code is 201
             and that the response came in json format
         """
-        data = self.prepare_creating_date_job_only()
+        person = next(generated_person())
+        job = person.job
+        data = self.prepare_creating_date(job=job)
         response = MyRequests.post(f"""{self.url.GET_SINGLE_USER}""", data)
         Assertion.assert_status_code(response, er.CREATED)
         Assertion.assert_response_have_be_json(response)

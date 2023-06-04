@@ -1,6 +1,8 @@
 import random
 import allure
 from requests import Response
+
+from framework.generator.generator import generated_person
 from framework.test_api_section.api_expected_result.base_url_and_path import GetUrl
 from framework.test_api_section.pages_api.base_page import BasePage
 from framework.test_api_section.pages_api.my_requests import MyRequests
@@ -15,7 +17,9 @@ class RegisterPost(BasePage):
     def register(self):
         """This method registers a new user"""
         email = random.choice(self.email)
-        data = self.prepare_creating_registration_data(email)
+        person = next(generated_person())
+        password = person.password
+        data = self.prepare_creating_registration_data(email=email, password=password)
         response = MyRequests.post(self.url.REGISTER_USER, data)
         return response, email
 
@@ -29,14 +33,19 @@ class RegisterPost(BasePage):
     @allure.description("Registration with wrong email, password present")
     def register_with_wrong_email(self):
         """This method registers a new user with wrong email, password present"""
-        data = self.prepare_creating_registration_data()
+        person = next(generated_person())
+        email = person.email
+        password = person.password
+        data = self.prepare_creating_registration_data(email=email, password=password)
         response = MyRequests.post(self.url.REGISTER_USER, data)
         return response
 
     @allure.description("Registration without email, password present")
     def register_without_email(self):
         """This method registers a new user without email, password present"""
-        data = self.prepare_creating_password()
+        person = next(generated_person())
+        password = person.password
+        data = self.prepare_creating_registration_data(password=password)
         response = MyRequests.post(self.url.REGISTER_USER, data)
         return response
 
@@ -44,14 +53,16 @@ class RegisterPost(BasePage):
     def register_without_password(self):
         """This method registers a new user without password, email present"""
         email = random.choice(self.email)
-        data = self.prepare_creating_email(email)
+        data = self.prepare_creating_registration_data(email=email)
         response = MyRequests.post(self.url.REGISTER_USER, data)
         return response
 
     @allure.description("Registration without password, email is wrong")
     def register_without_password_wrong_email(self):
         """This method registers a new user without password, email is wrong"""
-        data = self.prepare_creating_email()
+        person = next(generated_person())
+        email = person.email
+        data = self.prepare_creating_registration_data(email=email)
         response = MyRequests.post(self.url.REGISTER_USER, data)
         return response
 
