@@ -21,15 +21,15 @@ class BasePage:
                 "job": job
             }
 
-    @allure.description("This method get registration date")
-    def prepare_creating_registration_data(self, email=None, password=None):
+    @staticmethod
+    def prepare_creating_registration_data(email=None, password=None):
         if email is None:
             return {
                 "password": password
             }
         elif password is None:
             return {
-                "password": email
+                "email": email
             }
         else:
             return {
